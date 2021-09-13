@@ -1,2 +1,7 @@
-# hexlet-js
-Tasks for online Hexlet courses for the profession of JS developer
+# [Hexlet](https://ru.hexlet.io/)
+### Профессия
+## [Фронтенд-разработчик](https://ru.hexlet.io/programs/frontend)
+
+Решения задач к курсам профессии
+
+Все задачи решены самостоятельно
