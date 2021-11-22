@@ -1,5 +1,5 @@
 // https://ru.hexlet.io/challenges/js_arrays_sum_intervals_exercise
-// 
+// https://ru.hexlet.io/code_reviews/250916
 
 // Javascript: Сумма интервалов
 // =============================

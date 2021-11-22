@@ -1,6 +1,4 @@
 // https://ru.hexlet.io/challenges/js_arrays_compare_versions_exercise
-// 
-
 // https://ru.hexlet.io/code_reviews/197922
 
 // Сравнение версий

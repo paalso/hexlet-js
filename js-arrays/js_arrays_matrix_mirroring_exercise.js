@@ -1,8 +1,6 @@
 // https://ru.hexlet.io/challenges/js_arrays_matrix_mirroring_exercise
 // https://ru.hexlet.io/code_reviews/197338
 
-// https://ru.hexlet.io/code_reviews/197922
-
 // Зеркалирование матрицы
 // =======================
 /*
