@@ -1,7 +1,7 @@
 // https://ru.hexlet.io/courses/js-functions/lessons/reduce/exercise_unit
 // https://ru.hexlet.io/code_reviews/202783
 
-// Аггренация (кувгсу)
+// Аггрегация (reduce)
 // ====================
 
 /*
