@@ -19,3 +19,8 @@
 13 | +     |Счётчик одногодок               |96%          |
 14 | -     |Теория вероятности              |78%          |
 15 | -     |Парсинг конфигурации            |82%          |
+
+
+Перерешать:
+[Сигналы](https://ru.hexlet.io/courses/js-functions/lessons/signals/exercise_unit)
+[Парадигмы программирования](https://ru.hexlet.io/courses/js-functions/lessons/paradigms/exercise_unit)
