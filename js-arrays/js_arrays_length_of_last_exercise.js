@@ -10,15 +10,8 @@
 любая последовательность, не содержащая пробелов.
 */
 
-const lengthOfLastWord = text => {
-    text = text.trim();
-    return text.length - text.lastIndexOf(' ') - 1;
-};
-
-
-const lengthOfLastWord1 = text => {
-    const words = text.trim().split(' ');
-    return words[words.length - 1].length;
+const getLastWordLength = text => {
+  return text.trim().split(' ').at(-1).length;
 };
 
 
