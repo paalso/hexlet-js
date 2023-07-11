@@ -12,12 +12,11 @@
 'short' – массив содержит значения sat и sun
 */
 
-const getWeekends = (format = 'long') => {
-    const weekends = ['saturday', 'sunday'];
-    if (format == 'short')
-        return ['sat', 'sun'];
-    return weekends;
-};
+export const getWeekends = format => {
+  if (format === 'short')
+    return ['sat', 'sun'];
+  return ['saturday', 'sunday'];
+}
 
 
 console.log(getWeekends());

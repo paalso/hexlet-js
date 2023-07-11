@@ -29,3 +29,15 @@ export const swap = array => {
     return array;
   }
 */
+
+/*
+// Another version
+const swap = array => {
+  if (array.length <= 1)
+    return array;
+  const first = array.at(0);
+  const last = array.at(-1);
+  return [last, ...array.slice(1,-1), first];
+}
+*/
+
