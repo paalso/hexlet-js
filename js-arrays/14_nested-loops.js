@@ -54,3 +54,15 @@ const getSameCount = (coll1, coll2) => {
 export default getSameCount;
 // END
 */
+
+
+/*
+const getSameCount = (array1, array2) => {
+  const commonElements = [];
+  array1.forEach(element => {
+    if (array2.includes(element) && !commonElements.includes(element))
+      commonElements.push(element);
+  });
+  return commonElements.length;
+};
+*/

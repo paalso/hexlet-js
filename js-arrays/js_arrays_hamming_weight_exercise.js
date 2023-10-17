@@ -37,3 +37,9 @@ const hammingWeight = (num) => {
     return weight;
   };
   */
+  
+ /*
+ const hammingWeight = number =>
+  number.toString(2).split('').filter(e => e === '1').length;
+ */
+ 

@@ -11,15 +11,14 @@
 
 
 const buildDefinitionList = definitions => {
-    if (definitions.length === 0)
-        return '';
-    const definitionsTags = definitions.reduce(
-        (acc, [dt, dd]) => {
-            acc.push(`<dt>${dt}</dt><dd>${dd}</dd>`);
-            return acc;
-        }, []);
-    return `<dl>${definitionsTags.join('')}</dl>`;
+  if (definitions.length === 0)
+    return '';
+  const definitionsString = definitions
+    .map(([dt, dd]) => `<dt>${dt}</dt><dd>${dd}</dd>`)
+    .join('');
+  return `<dl>${definitionsString}</dl>`
 };
+
 
 const definitions = [
     ['Блямба', 'Выпуклость, утолщения на поверхности чего-либо'],
