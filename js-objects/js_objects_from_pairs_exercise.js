@@ -11,12 +11,21 @@
 из последнего массива-пары:
 */
 
-const fromPairs = pairs => pairs.reduce(
+const fromPairs1 = pairs => pairs.reduce(
     (acc, [key, value]) => {
         acc[key] = value;
         return acc;
     }, {}
 );
+
+# Но так кмк лучше:
+const fromPairs2 = array => {
+  const result = {};
+  array.forEach(([key, value]) => {
+    result[key] = value;
+  });
+  return result;
+};
 
 
 console.log(fromPairs([['cat', 5], ['dog', 6], ['cat', 11]]));

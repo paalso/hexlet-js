@@ -32,3 +32,17 @@ console.log(pick(data, [])); // {}
 // Если такого свойства нет в исходных данных,
 // то оно игнорируется 
 console.log(pick(data, ['none', 'cores'])); // { cores: 4 }
+
+
+/*
+# Version # 2
+const pick = (data, keys) => {
+  const result = {};
+  Object.keys(data).filter(
+    key => keys.includes(key)
+  ).forEach(element => {
+    result[element] = data[element];
+  });
+  return result;
+}
+*/

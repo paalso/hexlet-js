@@ -46,3 +46,16 @@ console.log(get(data, ['hosts', 1, 'name'])); // 'web2'
 console.log(get(data, ['hosts', 0])); // { name: 'web1' }
 console.log(get(data, ['hosts', 1, null])); // 3
 console.log(get(data, ['hosts', 1, 'active'])); // false
+
+/*
+# Version 2
+const get = (data, keys) => {
+  let current = data;
+  for (const key of keys) {
+    if (! Object.hasOwn(current, key))
+      return null;
+    current = current[key];
+  }
+  return current;
+};
+*/

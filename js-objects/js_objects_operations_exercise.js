@@ -22,28 +22,23 @@ unchanged — ключ присутствовал и в первом и во в�
 const genDiff = (object1, object2) => {
   const keys1 = Object.keys(object1);
   const keys2 = Object.keys(object2);
-  const unitedKeysSet = new Set();
-
-  keys1.forEach(key => unitedKeysSet.add(key));
-  keys2.forEach(key => unitedKeysSet.add(key));
+  const allKeys = new Set([...keys1, ...keys2]);
 
   const diff = {};
-  Array.from(unitedKeysSet).forEach(
-    key => {
-      if (!keys1.includes(key))
-        diff[key] = "added"
-      else if (!keys2.includes(key))
-        diff[key] = "deleted";
-      else if (object1[key] !== object2[key])
-        diff[key] = "changed";
-      else
-        diff[key] = "unchanged";
-    }
-  );
 
-  return diff;
-};
+  for (const key of allKeys) {
+    if (keys1.includes(key) && ! keys2.includes(key))
+      diff[key] = 'deleted';
+    else if (! keys1.includes(key) && keys2.includes(key))
+      diff[key] = 'added';
+    else if (object1[key] === object2[key])
+      diff[key] = 'unchanged';
+    else
+      diff[key] = 'changed';
+  }
 
+  return  diff;
+}
 
 console.log(
   genDiff(

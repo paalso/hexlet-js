@@ -13,18 +13,18 @@
 В случае, когда список ключей пустой, нужно сливать все данные полностью.
 */
 
+const pick = (object, keys) => Object.entries(object).reduce(
+  (acc, [key, value]) => {
+    if (keys.includes(key))
+      acc(key) = value;
+    return acc;
+  }
+);
 
-const fill = (object, keys, source) => {
-    if (keys.length === 0) {
-        Object.assign(object, source);
-        return object;
-    }
-    for (const key of keys) {
-        if (object.hasOwnProperty(key))
-            object[key] = source[key];
-    }
-    return object;
-};
+fill = (object, keys, newData) => {
+  const newFilteredData = keys.length === 0 ? newData : _.pick(newData, keys);
+  return Object.assign(object, newFilteredData);
+}
 
 
 const company = {
@@ -52,8 +52,3 @@ console.log(fill(company, [], data));
   //   state: 'published',
   // }
 
-
-//   см. версии
-//   https://ru.hexlet.io/code_reviews/330980?submission_id=418898
-//   https://ru.hexlet.io/code_reviews/330980?submission_id=485904
-//   Они лучше!
