@@ -1,5 +1,5 @@
 // https://ru.hexlet.io/challenges/js_objects_query_string_exercise
-// 
+// https://ru.hexlet.io/code_reviews/199459
 
 // Javascript: Сборщик строки запроса
 // ===================================
@@ -33,3 +33,12 @@ console.log(bqs({ per: 10, page: 1 }));
 // page=1&per=10
 console.log(bqs({ param: 'all', param1: true }));
 // param=all&param1=true
+
+/*
+# Version 2
+const bqs = params => Object.entries(params)
+  .sort()
+  .map(([param, value]) => `${param}=${value}`)
+  .join('&');
+*/
+

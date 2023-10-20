@@ -15,6 +15,17 @@ const getDomainInfo = siteName => {
     return { scheme, name };
 };
 
+# Version # 2
+const getDomainInfo = domain => {
+  const info = {
+    scheme: 'http',
+  };
+  if (domain.startsWith('https'))
+    info.scheme = 'https';
+  info.name = domain.split('//').at(-1);
+  return info;
+};
+
 // Если домен передан без указания протокола,
 // то по умолчанию берется http
 console.log(getDomainInfo('yandex.ru'));
