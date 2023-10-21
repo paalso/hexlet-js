@@ -51,5 +51,18 @@ console.log(
   getMenCountByYear([])
 );
 
+/*
+// Another version
+const getMenCountByYear = users => users
+  .filter(({gender}) => gender === 'male')
+  .reduce(
+      (acc, {birthday}) => {
+        const year = birthday.slice(0, 4);
+        acc[year] = (acc[year] ?? 0) + 1;
+        return acc;
+      }, {}
+    );
+*/
+
 
 
