@@ -25,7 +25,8 @@
 */
 
 const getHash = s => {
-  return s.split("").reduce((a, b) => { a = ((a << 5) - a) + b.charCodeAt(0); return a & a }, 0);
+  return s.split("").reduce(
+    (a, b) => { a = ((a << 5) - a) + b.charCodeAt(0); return a & a }, 0);
 };
 
 const crc32 = getHash;
@@ -34,31 +35,30 @@ const MAP_ARRAY_LEN = 29;
 
 const make = () => [];
 
+const hash = (string, size) => crc32(string) % size;
+// For Hexlet
+// const hash = (string, size) => crc32.str(string) % size; 
+
 const set = (map, key, value) => {
-  // const hash = Math.abs(crc32(key)) % MAP_ARRAY_LEN;
-  const hash = crc32.str(key);
-  const current = map[hash];
-  if (current) {
-    const [currentKey, currentVal] = current;
-    if (currentKey != key)
-      return false;
-    current[1] = value;
+  const id = hash(key, MAP_ARRAY_LEN);
+  const [currentKey] = map[id] ? map[id] : [null];
+  
+  if (! currentKey || key === currentKey) {
+    map[id] = [key, value];
+    return true;
   }
-  map[hash] = [key, value];
-  return true;
+
+  return false;
 };
 
 const get = (map, key, defaultValue = null) => {
-  // const hash = Math.abs(crc32(key)) % MAP_ARRAY_LEN;
-  const hash = crc32.str(key);
-  const current = map[hash];
-  if (current) {
-    const [currentKey, currentVal] = current;
-    if (currentKey != key)
-      return defaultValue;
-    return currentVal;
-  }
-  return defaultValue;
+  const id = hash(key, MAP_ARRAY_LEN);
+  const [currentKey, currentValue] = map[id] ? map[id] : [null];
+
+  if (! currentKey || key !== currentKey)
+    return defaultValue;
+
+  return currentValue;
 };
 
 // ------------------------------
