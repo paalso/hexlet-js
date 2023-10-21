@@ -1,33 +1,60 @@
 // https://ru.hexlet.io/challenges/js_arrays_ascending_sequence_exercise
-// 
+// https://ru.hexlet.io/code_reviews/250916 
 
-// Javascript: Возрастающая последовательность
-// ============================================
+// Javascript: Сумма интервалов
+// =============================
 
 /*
-Реализуйте и экспортируйте по умолчанию функцию, которая проверяет, является
-ли переданная последовательность целых чисел возрастающей непрерывно (не
-имеющей пропусков чисел). Например, последовательность [4, 5, 6, 7] —
-непрерывная, а [0, 1, 3] — нет. Последовательность может начинаться с
-любого числа, главное условие — отсутствие пропусков чисел.
-Последовательность из одного числа не может считаться возрастающей.
+Реализуйте и экспортируйте по умолчанию функцию, которая принимает на вход
+массив интервалов и возвращает сумму всех длин интервалов. В данной задаче
+используются только интервалы целых чисел от -100 до 100 , которые
+представлены в виде массива. Первое значение интервала всегда будет меньше,
+чем второе значение. Например, длина интервала [-100, 0] равна 100, а длина
+интервала [5, 5] равна 0. Пересекающиеся интервалы должны учитываться только
+один раз.
 */
 
-const isContinuousSequence = sequence => {
-    const len = sequence.length;
-    if (len < 2)
-        return false;
-    for (let i = 1; i < len; i++) {
-        if (sequence[i] - sequence[i - 1] != 1)
-            return false;
-    }
-    return true;
+const sumIntervals = intervals => {
+  const values = [];
+  for (const [begin, end] of intervals)
+    for (let num = begin; num < end; num++)
+      if (! values.includes(num))
+        values.push(num);
+
+  return values.length;
 };
 
+// ---------------------------------------------------------------------------
 
-console.log(isContinuousSequence([10, 11, 12, 13]));     // true
-console.log(isContinuousSequence([-5, -4, -3]));         // true
-console.log(isContinuousSequence([10, 11, 12, 14, 15])); // false
-console.log(isContinuousSequence([1, 2, 2, 3]));         // false
-console.log(isContinuousSequence([7]));                  // false
-console.log(isContinuousSequence([]));                   // false
+console.log(sumIntervals([
+  [5, 5]
+])); // 0
+
+console.log(sumIntervals([
+  [-100, 0]
+])); // 100
+
+console.log(sumIntervals([
+  [1, 2],
+  [11, 12]
+])); // 2
+
+console.log(sumIntervals([
+  [2, 7],
+  [6, 6]
+])); // 5
+
+console.log(sumIntervals([
+  [1, 9],
+  [7, 12],
+  [3, 4]
+])); // 11
+
+sumIntervals([
+  [1, 5],
+  [-30, 19],
+  [1, 7],
+  [16, 19],
+  [5, 100]
+]); // 130
+

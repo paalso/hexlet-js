@@ -121,46 +121,17 @@ const multiply1 = (matrix1, matrix2) => {
 // Список диапазонов
 const summaryRanges1 = array => {
   const size = array.length;
-  if ( size < 2)
-    return [];
 
-  const ranges = [];
-
-  let rangeStart;
-  let insideRange = false;
-
-  for (let i=1; i < size; ++i) {
-    if (insideRange) {
-      if (array[i] - array[i - 1] !== 1) {
-        insideRange = false;
-        ranges.push(`${array[rangeStart]}->${array[i - 1]}`);
-      } 
-      if (i === size - 1) {
-        ranges.push(`${array[rangeStart]}->${array[i]}`);
-      }
-    } else {
-      if (array[i] - array[i - 1] === 1) {
-        insideRange = true;
-        rangeStart = i -1;
-      }
-    }
-  }
-  return ranges;
-};
-
-const summaryRanges = array => {
-  const size = array.length;
-
-  if ( size < 2)
+  if (size < 2)
     return [];
 
   const ranges = [];
   let rangeStart;
   let insideRange = false;
 
-  for (let i=1; i < size; ++i) {
+  for (let i = 1; i < size; ++i) {
     if (array[i] - array[i - 1] === 1) {
-      if (! insideRange)
+      if (!insideRange)
         rangeStart = i - 1;
       insideRange = true;
       if (i === size - 1)
@@ -175,33 +146,39 @@ const summaryRanges = array => {
   return ranges;
 };
 
-const convert = number => number + 100;
-
-const SHIFT = 100;
-
-const memoInterval = (begin, end, memo) => {
-  for (let i = begin; i <= end; i++)
-    memo[i + SHIFT] = 1;
-}
-
-const sumIntervals = intervals => {
-  const memo = Array(201).fill(0);
-
-  for (const [begin, end] of intervals)
-    memoInterval(begin, end, memo);
-
-  return memo.reduce((acc, e) => acc + e);
+// console.log(`${i} ${current} ${next} - ${range}`);
+const summaryRanges2 = array => {
+  const ranges = [];
+  let range = [];
+  for (let i = 0; i < array.length; i++) {
+    const current = array[i]
+    const next = array[i + 1]
+    range.push(current);
+    if (next - current !== 1) {
+      if (range.length > 1)
+        ranges.push(`${range[0]}->${range.at(-1)}`)
+      range = [];
+    }
+  }
+  return ranges;
 };
+
+const summaryRanges = summaryRanges2;
+
+// Сумма интервалов
+const sumIntervals = intervals => {
+  const values = [];
+  for (const [begin, end] of intervals)
+    for (let num = begin; num < end; num++)
+      if (! values.includes(num))
+        values.push(num);
+
+  return values.length;
+};
+
 
 // ---------------------------------------------------------------------------
 
-console.log(
-  sumIntervals([
-    [-100, -98]
-  ])
-);
-
-/*
 console.log(summaryRanges([]));
 // []
 
@@ -214,9 +191,9 @@ console.log(summaryRanges([1, 2]));
 console.log(summaryRanges([1, 2, 3]));
 // ['1->3']
 
-console.log(summaryRanges([0, 1, 2, 4, 5, 7, 8]));
+console.log(summaryRanges([0, 1, 2, 4, 5, 7]));
 // ['0->2', '4->5']
 
-console.log(summaryRanges([110, 111, 112, 111, -5, -4, -2, -3, -4, -5]));
+// console.log([110, 111, 112, 111, 110, -5, -4, -2, -3, -4, -5]);
+console.log(summaryRanges([110, 111, 112, 111, 110, -5, -4, -2, -3, -4, -5]));
 // ['110->112', '-5->-4']
-*/

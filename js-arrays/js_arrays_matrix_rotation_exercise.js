@@ -58,6 +58,42 @@ console.log(rotateRight(matrix3));
 console.log(rotateLeft(matrix3));
 
 
+/*
+// Version # 2
+
+const initializeRotatedMatrix = matrix => {
+  const height = matrix.length;
+  const width = matrix[0].length;
+  const rotatedMatrix = [];
+  for (let i = 0; i < width; i++)
+    rotatedMatrix.push(Array(height).fill(0));
+  return rotatedMatrix;  
+}
+
+const rotateLeft = matrix => {
+  const height = matrix.length;
+  const width = matrix[0].length;
+  const rotatedMatrix = initializeRotatedMatrix(matrix);
+
+  for (let x = 0; x < height; x++)
+    for (let y = 0; y < width; y++)
+      rotatedMatrix[width - 1 - y][x] = matrix[x][y];
+  return rotatedMatrix;
+};
+
+const rotateRight = matrix => {
+  const height = matrix.length;
+  const width = matrix[0].length;
+  const rotatedMatrix = initializeRotatedMatrix(matrix);
+
+  for (let x = 0; x < height; x++)
+    for (let y = 0; y < width; y++)
+      rotatedMatrix[y][height - 1 - x] = matrix[x][y];
+  return rotatedMatrix;
+};
+
+*/
+
 
 // Решение учителя
 // Да, можно было и сообразить..

@@ -1,70 +1,77 @@
-// https://ru.hexlet.io/challenges/js_arrays_sum_intervals_exercise
-// https://ru.hexlet.io/code_reviews/250916
+// https://ru.hexlet.io/challenges/js_arrays_summary_ranges_exercise/instance
+// https://ru.hexlet.io/code_reviews/201686
 
-// Javascript: Сумма интервалов
-// =============================
+// Javascript: Список диапазонов
+// ==============================
 
 /*
-Реализуйте и экспортируйте по умолчанию функцию, которая принимает на вход
-массив интервалов и возвращает сумму всех длин интервалов. В данной задаче
-используются только интервалы целых чисел от -100 до 100 , которые представлены
-в виде массива. Первое значение интервала всегда будет меньше, чем второе значение.
-Например, длина интервала [-100, 0] равна 100, а длина интервала [5, 5] равна 0.
-Пересекающиеся интервалы должны учитываться только один раз.
+Реализуйте и экспортируйте по умолчанию функцию, которая находит в массиве
+непрерывные возрастающие на единицу последовательности чисел и возвращает
+массив с их перечислением.
 */
 
+const summaryRanges1 = array => {
+  const size = array.length;
 
-const sumIntervals = intervals => {
-    const numToArrayId = num => num + 100;
-    const array = [];
-    for (let i = 0; i < 201; i++)
-        array.push(0);
+  if (size < 2)
+    return [];
 
-    for (const [begin, end] of intervals) {
-        for (let i = begin; i < end; i++)
-            array[numToArrayId(i)] = 1;
+  const ranges = [];
+  let rangeStart;
+  let insideRange = false;
+
+  for (let i = 1; i < size; ++i) {
+    if (array[i] - array[i - 1] === 1) {
+      if (!insideRange)
+        rangeStart = i - 1;
+      insideRange = true;
+      if (i === size - 1)
+        ranges.push(`${array[rangeStart]}->${array[i]}`)
+    } else {
+      if (insideRange) {
+        ranges.push(`${array[rangeStart]}->${array[i - 1]}`)
+      }
+      insideRange = false;
     }
-
-    return array.reduce((acc, e) => acc + e, 0);
+  }
+  return ranges;
 };
 
 
-
-console.log(sumIntervals([[5, 5]])); // 0
-
-console.log(sumIntervals([[-100, 0]])); // 100
-
-console.log(sumIntervals([[1, 2], [11, 12]])); // 2
-
-console.log(sumIntervals([[2, 7], [6, 6]])); // 5
-
-console.log(sumIntervals([
-    [1, 9],
-    [7, 12],
-    [3, 4]
-])); // 11
-
-console.log(sumIntervals([
-    [1, 5],
-    [-30, 19],
-    [1, 7],
-    [16, 19],
-    [5, 100]
-])); // 130
-
-
-
-// Teacher's Version
-/*
-const sumIntervals = (intervals) => {
-    const values = [];
-    for (const [start, end] of intervals) {
-      for (let i = start; i < end; i += 1) {
-        if (!values.includes(i)) {
-          values.push(i);
-        }
-      }
+const summaryRanges2 = array => {
+  const ranges = [];
+  let range = [];
+  for (let i = 0; i < array.length; i++) {
+    const current = array[i]
+    const next = array[i + 1]
+    range.push(current);
+    if (next - current !== 1) {
+      if (range.length > 1)
+        ranges.push(`${range[0]}->${range.at(-1)}`)
+      range = [];
     }
-    return values.length;
-  };
-  */
+  }
+  return ranges;
+};
+
+
+const summaryRanges = summaryRanges2;
+console.log(summaryRanges([]));
+// []
+
+console.log(summaryRanges([1]));
+// []
+
+console.log(summaryRanges([1, 2]));
+// ['1->2']
+
+console.log(summaryRanges([1, 2, 3]));
+// ['1->3']
+
+console.log(summaryRanges([0, 1, 2, 4, 5, 7]));
+// ['0->2', '4->5']
+
+// console.log([110, 111, 112, 111, 110, -5, -4, -2, -3, -4, -5]);
+console.log(summaryRanges([110, 111, 112, 111, 110, -5, -4, -2, -3, -4, -5]));
+// ['110->112', '-5->-4']
+
