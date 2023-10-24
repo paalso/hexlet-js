@@ -23,3 +23,21 @@ const rgbToHex = (...rgb) => {
 
 console.log(hexToRgb('#24ab00'));   // { r: 36, g: 171, b: 0 }
 console.log(rgbToHex(36, 171, 0));  // '#24ab00'
+
+
+// Version 2
+/*
+const hexToDecimal = hexToken => parseInt(hexToken, 16);
+
+const hexToRgb = hex => {
+  return {
+    r: hexToDecimal(hex.slice(1, 3)),
+    g: hexToDecimal(hex.slice(3, 5)),
+    b: hexToDecimal(hex.slice(5, 7)),
+  }
+}
+
+const rgbToHex = (red, green, blue) => {
+  return `#${(65536 * red + 256 * green + blue).toString(16).padStart(6, '0')}`;
+};
+*/

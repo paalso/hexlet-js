@@ -11,14 +11,12 @@ takeLast() вторым параметром. Если передаётся пу
 меньше необходимой длины, функция должна вернуть null. */
 
 const run = (text) => {
-  // BEGIN (write your solution here)
-  const takeLast = text => {
-    if (text.length < 4)
+  const takeLast = (text, size) => {
+    if (text.length < size)
       return null;
-    return text.slice(-4).split('').reverse().join('');
-  };
-  // END
+    return text.slice(-size).split('').reverse().join('')
 
+  }
   return takeLast(text, 4);
 };
 

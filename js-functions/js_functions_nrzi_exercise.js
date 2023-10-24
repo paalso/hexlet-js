@@ -29,7 +29,6 @@ const nrzi = signal => {
   return result.join('');
 };
 
-
 const signal1 = '_|¯|____|¯|__|¯¯¯';
 console.log(nrzi(signal1)); // '011000110100'
 console.log(nrzi(signal1) === '011000110100'); // 
@@ -53,4 +52,16 @@ const signal5 = '|';
 console.log(nrzi(signal5)); // ''
 
 
-
+// Version 2
+/*
+const nrzi = signal => {
+  const start = signal[0];
+  signal = signal.replaceAll('|','');
+  if (signal.length === 0)
+    return '';
+  const result = [start === '|' ? 1 : 0];
+  for (let i = 1; i < signal.length; i++)
+    result.push(signal[i] === signal[i - 1] ? 0: 1)
+  return result.join('');
+};
+*/
