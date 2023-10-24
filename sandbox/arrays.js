@@ -176,24 +176,135 @@ const sumIntervals = intervals => {
   return values.length;
 };
 
+// Треугольник Паскаля
+const getNextRow = row => {
+  const nextRow = [1];
+  for (let i = 1; i < row.length; i++)
+    nextRow.push(row[i - 1] + row[i]);
+  nextRow.push(1);
+  return nextRow;
+}
 
+const generate = n => {
+  if (n === 0)
+    return [1];
+  let row = [1];
+  for (let i = 0; i < n; i++)
+    row = getNextRow(row);
+  return row;
+};
+
+// Морской бой
+const getFieldSizes = field => {
+  const height = field.length;
+  const width = height > 0 ? field[0].length : 0;
+  return {width, height}
+}
+
+const isValidField = field => {
+  const {width, height} = getFieldSizes(field);
+  const isInside = (x, y) => 0 <= x && x < width && 0 <= y && y < height;
+  const isSet = (x, y) => field[y][x] !== 0;
+  const hasHorizontalNeihbors = (x, y) => (isInside(y, x - 1) && isSet(x - 1, y))
+                                       || (isInside(y, x + 1) && isSet(x + 1, y));
+
+  const hasVerticalNeihbors = (x, y) => (isInside(y - 1, x) && isSet(x, y - 1))
+                                     || (isInside(y + 1, x) && isSet(x, y + 1));
+
+  const hasDiagonalNeihbors = (x0, y0) => {
+    for(const [dx, dy] of [[-1, -1], [-1, 1], [1, -1], [1, 1]]) {
+      const x = x0 + dx;
+      const y = y0 + dy;
+      if (isInside(x, y) && isSet(x, y))
+        return true
+    }
+    return false;
+  }
+
+  for (let x = 0; x < width; x++)
+    for (let y = 0; y < height; y++) {
+      if (! field[y][x])
+        continue;
+      if (hasDiagonalNeihbors(x, y) 
+      || (hasHorizontalNeihbors(x, y) && hasVerticalNeihbors(x, y)))
+        return false;
+    }
+
+  return true;
+}
+
+const calcShipsCount = field => {
+  const {width, height} = getFieldSizes(field);
+  const isInside = (x, y) => 0 <= x && x < width && 0 <= y && y < height;
+  const isSet = (x, y) => field[y][x] !== 0;
+
+  const shipData = [];  
+  for (let y = 0; y < height; y++)
+    shipData.push(new Array(width).fill(0));
+  const getShipNumber = (x, y) => shipData[y][x];
+  const setShipNumber = (x, y, number) => shipData[y][x] = number;
+  const checkPreviousHorizontal = (x, y) => isInside(x - 1, y) ? getShipNumber(x - 1, y) : null;
+  const checkPreviousVertical = (x, y) => isInside(x, y - 1) ? getShipNumber(x, y - 1) : null;
+
+  let shipCounter = 0;
+
+  for (let y = 0; y < height; y++)
+    for (let x = 0; x < width; x++) {
+      if (isSet(x, y) && ! getShipNumber(x, y)) {
+        const previousNeigbourNumber = checkPreviousHorizontal(x, y)
+                                    || checkPreviousVertical(x, y);
+        if (previousNeigbourNumber)
+          setShipNumber(x, y, previousNeigbourNumber);
+        else {
+          shipCounter += 1;
+          setShipNumber(x, y, shipCounter);
+        }
+      }
+    }
+  // printMatrix(shipData);
+  return shipCounter;
+};
+
+const isValidField1 = (battleField) => {
+  for (let col = 0; col < battleField.length; col += 1) {
+    for (let row = 1; row < battleField.length; row += 1) {
+      if (battleField[row][col]) {
+        if (battleField[row - 1][col + 1] || battleField[row - 1][col - 1]) {
+          return false;
+        }
+      }
+    }
+  }
+  return true;
+};
 // ---------------------------------------------------------------------------
 
-console.log(summaryRanges([]));
-// []
+const field1 = 
+[
+  [0, 1, 0, 0],
+  [0, 1, 0, 1],
+  [0, 0, 0, 0],
+  [0, 1, 1, 1],
+];
 
-console.log(summaryRanges([1]));
-// []
+const field2 = [[1],];
 
-console.log(summaryRanges([1, 2]));
-// ['1->2']
+const field3 = 
+[
+  [0, 1, 0, 0, 0, 0],
+  [0, 1, 0, 1, 1, 1],
+  [0, 0, 0, 0, 0, 0],
+  [0, 1, 1, 1, 0, 1],
+  [0, 0, 0, 0, 0, 1],
+  [1, 1, 0, 1, 0, 0],
+];
 
-console.log(summaryRanges([1, 2, 3]));
-// ['1->3']
+const field4 = [];
 
-console.log(summaryRanges([0, 1, 2, 4, 5, 7]));
-// ['0->2', '4->5']
+const  field = field1;
 
-// console.log([110, 111, 112, 111, 110, -5, -4, -2, -3, -4, -5]);
-console.log(summaryRanges([110, 111, 112, 111, 110, -5, -4, -2, -3, -4, -5]));
-// ['110->112', '-5->-4']
+printMatrix(field);
+console.log();
+console.log(calcShipsCount(field));
+console.log(isValidField(field));
+console.log(isValidField1(field));
