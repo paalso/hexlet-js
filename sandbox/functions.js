@@ -152,21 +152,83 @@ const merge = (...dicts) => dicts.reduce(
     return acc;
   }, {}
 );
+
+// Фильтрация (filter) 
+const getGirlFriends = users => users
+  .map(({friends}) => friends)
+  .flat()
+  .filter(({gender}) => gender === 'female');
+
+// Агрегация (reduce) 
+const groupBy = (objects, property) => objects.reduce(
+  (acc, e) => {
+    const property_value = e[property];
+    if (! acc.hasOwnProperty(property_value))
+      acc[property_value] = [];
+    acc[property_value].push(e);
+    return acc;
+  }, {}
+);
+
+// Сигналы
+const freeEmailDomains = [
+  'gmail.com',
+  'yandex.ru',
+  'hotmail.com',
+  'yahoo.com',
+];
+
+const getFreeDomainsCount = emails => emails
+  .map(e => e.split('@').at(-1))
+  .filter(e => freeEmailDomains.includes(e))
+  .reduce(
+    (acc, e) => {
+      acc[e] = (acc[e] ?? 0) + 1;
+      return acc;
+    }, {}
+  );
+
+// Итеративный процесс
+const smallestDivisor = number => {
+  if (number === 1)
+    return 1;
+  const iter = counter => {
+    if (number % counter === 0)
+      return counter;
+    return iter(counter + 1);
+  }
+  return iter(2);
+}
+
+// IP конвертер
+const toChunks = (array, chunkSize) => {
+  const chunks = [];
+  for (let chunkStart = 0; chunkStart < array.length; chunkStart += chunkSize)
+    chunks.push(array.slice(chunkStart, chunkStart + chunkSize));
+  return chunks;
+};
+
+const ipToInt = ip => {
+  const multipliers = [256 ** 3, 256 ** 2, 256,  1];
+  const ips = ip.split('.').map(e => parseInt(e));
+  return ips.reduce((sum, value, index) => sum + value * multipliers[index], 0);
+};
+
+const intToIp = intIp => {
+  const normalizedIp = intIp.toString(16).padStart(8, 0);
+  const chunks = toChunks(normalizedIp, 2);
+  return chunks.map(chunk => parseInt(chunk, 16)).join('.');
+};
+
 // ---------------------------------------------------------------------------
 
 
-console.log(merge({}, {}, {}));
-// {}
+console.log(ipToInt('128.32.10.1')); // 2149583361
+console.log(ipToInt('0.0.0.0')); // 0
+console.log(ipToInt('255.255.255.255')); // 4294967295
 
-console.log(merge({ a: 1, b: 2 }, { a: 3 }));
-// { a: [1, 3], b: [2] }
-
-console.log(merge(
-    { a: 1, b: 2, c: 3 },
-    {},
-    { a: 3, b: 2, d: 5 },
-    { a: 6 },
-    { b: 4, c: 3, d: 2 },
-    { e: 9 },
-  ));
-// { a: [1, 3, 6], b: [2, 4], c: [3], d: [5, 2], e: [9] }
+console.log(intToIp(2149583361)); // '128.32.10.1'
+console.log(intToIp(0)); // '0.0.0.0'
+console.log(intToIp(4294967295)); // '255.255.255.255'
+console.log(intToIp(32));
+console.log(intToIp(167801600));

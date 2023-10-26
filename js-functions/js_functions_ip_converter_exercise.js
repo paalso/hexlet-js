@@ -1,5 +1,5 @@
-//
-//
+// https://ru.hexlet.io/challenges/js_functions_ip_converter_exercise/instance
+// https://ru.hexlet.io/code_reviews/253743
 
 // IP конвертер
 // =============
@@ -19,11 +19,23 @@
 
 */
 
-const ipToInt = (ip) => {};
+const toChunks = (array, chunkSize) => {
+  const chunks = [];
+  for (let chunkStart = 0; chunkStart < array.length; chunkStart += chunkSize)
+    chunks.push(array.slice(chunkStart, chunkStart + chunkSize));
+  return chunks;
+};
 
-const intToIp = (ipNumber) => {
-  const ipNumberHex = ipNumber.toString(16).padStart(12, "0");
-  return ipNumberHex;
+const ipToInt = ip => {
+  const multipliers = [256 ** 3, 256 ** 2, 256,  1];
+  const ips = ip.split('.').map(e => parseInt(e));
+  return ips.reduce((sum, value, index) => sum + value * multipliers[index], 0);
+};
+
+const intToIp = intIp => {
+  const normalizedIp = intIp.toString(16).padStart(8, 0);
+  const chunks = toChunks(normalizedIp, 2);
+  return chunks.map(chunk => parseInt(chunk, 16)).join('.');
 };
 
 console.log(ipToInt("128.32.10.1")); // 2149583361

@@ -12,16 +12,15 @@ freeEmailDomains. */
 
 const freeEmailDomains = ["gmail.com", "yandex.ru", "hotmail.com", "yahoo.com"];
 
-const getFreeDomainsCount = (emails) =>
-  emails
-    .map((email) => email.slice(email.indexOf("@") + 1))
-    .filter((domain) => freeEmailDomains.includes(domain))
-    .reduce((acc, item) => {
-      if (!acc.hasOwnProperty(item)) acc[item] = 0;
-      acc[item] += 1;
+const getFreeDomainsCount = emails => emails
+  .map(e => e.split('@').at(-1))
+  .filter(e => freeEmailDomains.includes(e))
+  .reduce(
+    (acc, e) => {
+      acc[e] = (acc[e] ?? 0) + 1;
       return acc;
-    }, {});
-
+    }, {}
+  );
 const emails = [
   "info@gmail.com",
   "info@yandex.ru",
