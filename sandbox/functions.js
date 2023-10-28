@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 // Чистые функции
 const isPrime = (num) => {
   if (num < 2) {
@@ -220,15 +222,27 @@ const intToIp = intIp => {
   return chunks.map(chunk => parseInt(chunk, 16)).join('.');
 };
 
+// Горизонтальная гистограмма
+const rollDie = () => Math.floor(Math.random() * 6) + 1;
+
+// => 1|
+//    2|## 2
+const buildHistoLine = (number, count, fillToken='#') => {
+    const line = count > 0 ? `${fillToken.repeat(count)} ${count}` : '';
+    return `${number}|${line}`;
+}
+
+const play = (tries, rollDie) => {
+  const rollDieResults = _.times(tries, rollDie);
+  const countByResult = _.countBy(rollDieResults);
+  const histoLines = [];
+  for (let i = 1; i <= 6; i++) {
+    const diceCounter = _.get(countByResult, String(i), 0);
+    histoLines.push(buildHistoLine(i, diceCounter));
+  }
+console.log(histoLines.join('\n'));
+};
+
 // ---------------------------------------------------------------------------
 
-
-console.log(ipToInt('128.32.10.1')); // 2149583361
-console.log(ipToInt('0.0.0.0')); // 0
-console.log(ipToInt('255.255.255.255')); // 4294967295
-
-console.log(intToIp(2149583361)); // '128.32.10.1'
-console.log(intToIp(0)); // '0.0.0.0'
-console.log(intToIp(4294967295)); // '255.255.255.255'
-console.log(intToIp(32));
-console.log(intToIp(167801600));
+play(100, rollDie);
