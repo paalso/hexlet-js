@@ -10,6 +10,7 @@ const isPalindrome = text => {
   return isPalindrome(text.slice(1,-1))
 };
 
+// Параметры по умолчанию
 const substr = (text, start=0, length=text.length) => {
   start = Math.max(start, 0);
   length = length < 0 ? 1 : length;
@@ -20,13 +21,23 @@ const substr = (text, start=0, length=text.length) => {
   return substrChars.join('');
 };
 
+// Объекты первого класса
+
+const apply = (times, func, arg) => {
+  let result = arg ;
+  for (let i = 0; i < times; i++) {
+    result = func(result);
+  }
+  return result;
+}
+
 // ----------------------------------------------------------------------------------
-assert(substr('abba', 0, 1) === 'a');
-assert(substr('abba', 1, 2) === 'bb');
-assert(substr('abba', -10, 2) ===  'ab');
-assert(substr('abba', -1, 100) === 'abba');
-assert(substr('abba', -1, -1) === 'a');
-assert(substr('abba', 1, -10) === 'b');
-assert(substr('abba', 1, 10) === 'bba');
-assert(substr('abba', 1, 0) === '');
-assert(substr('abba', 100, 3) === '');
+
+console.log(apply(0, Math.sqrt, 4)); // 4
+console.log(apply(1, Math.sqrt, 4)); // 2
+
+console.log(apply(2, Math.sqrt, 16)); // 2
+console.log(apply(3, Math.sqrt, 256)); // 2
+
+console.log(apply(1, v => v ** 2, 3)); // 9
+console.log(apply(5, v => v + 10, 3)); // 53
