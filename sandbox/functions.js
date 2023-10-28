@@ -243,6 +243,23 @@ const play = (tries, rollDie) => {
 console.log(histoLines.join('\n'));
 };
 
-// ---------------------------------------------------------------------------
+// Парсинг конфигурации
+import { readFileSync } from 'fs';
 
-play(100, rollDie);
+const PREFIX = 'X_FORWARDED_';
+
+const getForwardedVariables = content => [].concat(
+  ...content
+  .split('\n')
+  .filter(line => line.startsWith('environment'))
+  .map(line => line.slice(line.indexOf('"') + 1, -1))
+  .map(line => line.split(',')))
+  .filter(e => e.startsWith(PREFIX))
+  .map(e => e.replaceAll(PREFIX, ''))
+  .join(',');
+
+// ---------------------------------------------------------------------------
+const filename = 's1.conf';
+const content = readFileSync(filename, 'utf-8');
+const result = getForwardedVariables(content);
+console.log(result);
