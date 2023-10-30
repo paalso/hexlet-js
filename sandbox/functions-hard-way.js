@@ -21,6 +21,9 @@ const substr = (text, start=0, length=text.length) => {
   return substrChars.join('');
 };
 
+// Выполнение функций
+
+
 // Объекты первого класса
 
 const apply = (times, func, arg) => {
