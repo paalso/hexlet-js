@@ -277,6 +277,23 @@ const isValidField1 = (battleField) => {
   }
   return true;
 };
+
+// Самая длинная подстрока
+const getLongestLength = string => {
+  let maxLength = 0;
+  let c;
+  for (let i = 0, stringLength = string.length; i < stringLength; i++) {
+    const substrChars = [string[i]];
+    for (let j = i + 1; ; j++) {
+      if (substrChars.includes((c = string[j])) || ! c) {
+        maxLength = Math.max(maxLength, substrChars.length);
+        break;
+      }
+      substrChars.push(c)
+    }
+  }
+  return maxLength;
+};
 // ---------------------------------------------------------------------------
 
 const field1 = 
@@ -303,8 +320,17 @@ const field4 = [];
 
 const  field = field1;
 
-printMatrix(field);
-console.log();
-console.log(calcShipsCount(field));
-console.log(isValidField(field));
-console.log(isValidField1(field));
+// printMatrix(field);
+// console.log();
+// console.log(calcShipsCount(field));
+// console.log(isValidField(field));
+// console.log(isValidField1(field));
+
+
+console.log(getLongestLength('')); // 0
+console.log(getLongestLength('a')); // 0
+console.log(getLongestLength('aa')); // 0
+console.log(getLongestLength('ab')); // 0
+console.log(getLongestLength('abcdeef')); // 5
+console.log(getLongestLength('jabjcdel')); // 7
+console.log(getLongestLength('abj')); // 7

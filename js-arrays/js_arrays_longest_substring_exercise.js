@@ -12,32 +12,21 @@ qweqrty, можно выделить следующие подстроки: qwe,
 будет weqrty.
 */
 
-const getLongestLength = text => {
-    if (text.length === 0)
-      return 0;
-  
-    const len = text.length;
-    const getLongestLengthFromCurrentPos = (pos) => {
-      const uniq = [];
-      for (let i = pos; i < len; i++) {
-        const c = text[i];
-        if (uniq.includes(c))
-          return i - pos;
-        uniq.push(c);
+const getLongestLength = string => {
+  let maxLength = 0;
+  let c;
+  for (let i = 0, stringLength = string.length; i < stringLength; i++) {
+    const substrChars = [string[i]];
+    for (let j = i + 1; ; j++) {
+      if (substrChars.includes((c = string[j])) || ! c) {
+        maxLength = Math.max(maxLength, substrChars.length);
+        break;
       }
-      return len - pos;
-    };
-  
-    let longestLength = 1;
-    let i = 0;
-    while (i < len - longestLength) {
-      let currentLength = getLongestLengthFromCurrentPos(i);
-      if (currentLength > longestLength)
-        longestLength = currentLength;
-      i += 1;
+      substrChars.push(c)
     }
-    return longestLength;
-  };
+  }
+  return maxLength;
+};
 
 console.log(getLongestLength('abcdeef')); // 5
 console.log(getLongestLength('jabjcdel')); // 7
