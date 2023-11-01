@@ -21,11 +21,7 @@ const substr = (text, start=0, length=text.length) => {
   return substrChars.join('');
 };
 
-// Выполнение функций
-
-
 // Объекты первого класса
-
 const apply = (times, func, arg) => {
   let result = arg ;
   for (let i = 0; i < times; i++) {
@@ -34,13 +30,15 @@ const apply = (times, func, arg) => {
   return result;
 }
 
+// Карррирование
+const sum = x => y => x + y;
+const True = x => y => x;
+const False = x => y => y;
+const If = func => func;
 // ----------------------------------------------------------------------------------
 
-console.log(apply(0, Math.sqrt, 4)); // 4
-console.log(apply(1, Math.sqrt, 4)); // 2
-
-console.log(apply(2, Math.sqrt, 16)); // 2
-console.log(apply(3, Math.sqrt, 256)); // 2
-
-console.log(apply(1, v => v ** 2, 3)); // 9
-console.log(apply(5, v => v + 10, 3)); // 53
+console.log();
+console.log(If(True)('one')('two'));
+console.log(If(False)('one')('two'));
+// console.log(If(true)('one')('two'));
+// console.log(If(false)('one')('two'));
