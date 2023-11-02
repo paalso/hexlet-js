@@ -31,14 +31,30 @@ const apply = (times, func, arg) => {
 }
 
 // Карррирование
-const sum = x => y => x + y;
-const True = x => y => x;
-const False = x => y => y;
+
+/*
+Начинать нужно исходя из этого:
+
+If(True)('one')('two');  // one
+If(False)('one')('two'); // two
+
+Т.е. нужно придумать функцию If такую, что
+If(True) - к-я также является функцией обладает таким свойством, что 
+возвращает свой первый аргумент
+If(False) - к-я также является функцией, в свою очередь возвращаеи свой второй
+аргумент
+Т.е. нужно просто сосредоточиться на функциях, которое умеют возвращать свой
+первый/второй аргумент (из двух)
+А If в таком случае будет тождественной функцией, к-я возвращает свой аргумент
+(функцию) в неизмененом виде, тогда:
+*/
+
+const True = first => second => first;
+const False = first => second => second;
 const If = func => func;
 // ----------------------------------------------------------------------------------
-
 console.log();
-console.log(If(True)('one')('two'));
-console.log(If(False)('one')('two'));
-// console.log(If(true)('one')('two'));
-// console.log(If(false)('one')('two'));
+console.log(True('one')('two'));
+console.log(False('one')('two'));
+console.log(If(True)('one')('two'));  // 'one'
+console.log(If(False)('one')('two')); // 'two'
