@@ -34,9 +34,9 @@ console.log(`Duration when using new Set(array2).has: ${duration2} ms`);
 // ----------------------------------------------------------------------------------------
 
 // Поиск в Array vs Set
+/*
 const randomStrs = randomStrings(asciiLetters, 20, 25, 1_000);
 const uniqStrs = new Set(randomStrs);
-
 console.log('Random strings:');
 console.log(...randomStrs.slice(0,3), '...');
 console.log(`Random strings length:      ${randomStrs.length}`);
@@ -69,3 +69,20 @@ const checkInArrayDuration = getDuration(includes1, [randomStrs, elementToFind])
 const checkInSetDuration = getDuration(includes2, [randomStrs, elementToFind]);
 console.log(`checkInArrayDuration: ${checkInArrayDuration}`);
 console.log(`checkInSetDuration:   ${checkInSetDuration}`);
+*/
+// ----------------------------------------------------------------------------------------
+
+const factorialGenerator = number => {
+  const factorials = {0: 1};
+  const inner = n => {
+    if (! factorials.hasOwnProperty(n))
+      factorials[n] = n * inner(n - 1);
+    return factorials[n];
+  };
+  return inner;
+};
+
+const n = 5;
+const factorial = factorialGenerator();
+const result = factorial(5);
+console.log(result);
