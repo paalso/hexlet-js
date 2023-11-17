@@ -82,7 +82,54 @@ const factorialGenerator = number => {
   return inner;
 };
 
-const n = 5;
-const factorial = factorialGenerator();
-const result = factorial(5);
-console.log(result);
+// const n = 5;
+// const factorial = factorialGenerator();
+// const result = factorial(5);
+// console.log(result);
+
+// Нормализация данных
+import lodash from 'lodash';
+import dateFns from 'date-fns';
+
+const { keyBy, get, find } = lodash;
+const { eachDayOfInterval, format, parse } = dateFns;
+
+const searchByDate = (data, date) => {
+  for (const entry of data) {
+    if (entry.date === date)
+      return entry;
+  }
+};
+
+const normalizeData = (data, startDate, endDate) =>
+  eachDayOfInterval({start: new Date(startDate), end: new Date(endDate)})
+  .map(date => {
+      const reformattedDate = format(date, 'dd.MM.yyyy');
+      const entry = find(data, {date: reformattedDate});
+      return entry ? entry : { value: 0, date: reformattedDate };
+    }
+  );
+
+const data = [
+  { value: 14, date: '02.08.2018' },
+  { value: 43, date: '03.08.2018' },
+  { value: 38, date: '05.08.2018' },
+];
+
+const begin = '2018-08-01';
+const end = '2018-08-06';
+
+const result = normalizeData(data, begin, end);
+// console.log(result);
+
+const dates = keyBy(data, 'date');
+console.log(dates);
+
+const subResult1 = eachDayOfInterval({ start: new Date(begin), end: new Date(end) })
+    .map((day) => format(day, 'dd.MM.yyyy'));
+const subResult2 =
+  eachDayOfInterval({ start: new Date(begin), end: new Date(end) })
+    .map((day) => format(day, 'dd.MM.yyyy'))
+    .map((date) => get(dates, date, { value: 0, date }));
+
+console.log(subResult2);
