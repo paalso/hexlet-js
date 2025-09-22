@@ -7,3 +7,7 @@
 6. [Навигация по DOM-дереву](https://ru.hexlet.io/courses/js-dom/lessons/dom-hierarchy/theory_unit)
 
    [Решение](https://ru.hexlet.io/code_reviews/1895258)
+
+9. [Манипулирование DOM-деревом](https://ru.hexlet.io/courses/js-dom)
+
+   [Решение](https://ru.hexlet.io/code_reviews/1897104)
