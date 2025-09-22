@@ -11,3 +11,7 @@
 9. [Манипулирование DOM-деревом](https://ru.hexlet.io/courses/js-dom)
 
    [Решение](https://ru.hexlet.io/code_reviews/1897104)
+
+10. [Управление узлами DOM](https://ru.hexlet.io/courses/js-dom/lessons/element-manipulating/theory_unit)
+
+   [Решение](https://ru.hexlet.io/code_reviews/1897353)

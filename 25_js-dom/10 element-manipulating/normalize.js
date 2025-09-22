@@ -1,9 +1,22 @@
-// @ts-check
+const capitalize = (string) => {
+  if (typeof string !== "string" || string.length === 0) return string;
+  return string.charAt(0).toUpperCase() + string.slice(1);
+};
 
-import "core-js/stable";
-import "regenerator-runtime/runtime";
-import camelCase from "lodash/camelCase";
+const normalizeClassName = (className) => {
+  const [firstToken, ...rest] = className.split("-");
+  return [firstToken, ...rest.map(capitalize)].join("");
+};
 
-// BEGIN (write your solution here)
+const normalizeElement = (element) => {
+  const classListCopy = [...element.classList];
+  element.className = "";
+  classListCopy.forEach((name) =>
+    element.classList.add(normalizeClassName(name))
+  );
+};
 
-// END
+export default () => {
+  const allElements = document.querySelectorAll("*");
+  allElements.forEach((element) => normalizeElement(element));
+};

@@ -1,3 +1,3 @@
-import prettify from "./prettify.js";
+import normalize from "./normalize.js";
 
-prettify(document);
+normalize();
