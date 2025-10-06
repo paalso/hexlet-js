@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .active {
+        font-weight: bold;
+      }
+
+      .nav {
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <ul class="nav">
+      <li>
+        <a class="active" data-toggle="tab" href="#home">Home</a>
+      </li>
+      <li>
+        <a data-toggle="tab" href="#profile">Profile</a>
+      </li>
+      <li>
+        <a data-toggle="tab" href="#contact">Contact</a>
+      </li>
+    </ul>
+    <script>
+      const links = document.querySelectorAll('[data-toggle="tab"]');
+      links.forEach((link) =>
+        link.addEventListener("click", (e) => {
+          const nav = link.closest(".nav");
+          // Находим активный элемент внутри меню
+          const activeElement = nav.querySelector(".active");
+          activeElement.classList.remove("active");
+          link.classList.add("active");
+        })
+      );
+    </script>
+  </body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body > div {
+        border: red dotted 1px;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <button id="send">Send</button>
+      <button id="cancel">Cancel</button>
+    </div>
+    <script>
+      const div = document.querySelector("div");
+      const button1 = document.querySelector("#send");
+      const button2 = document.querySelector("#cancel");
+
+      div.addEventListener("click", () => alert("Div alert"));
+      button1.addEventListener("click", () => alert("Button Send alert"));
+      button2.addEventListener("click", () => alert("Button Cancel alert"));
+    </script>
+  </body>
+</html>
