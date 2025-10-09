@@ -27,3 +27,19 @@
 14. [Формы](https://ru.hexlet.io/courses/js-dom/lessons/forms/theory_unit)
 
     [Решение](https://ru.hexlet.io/code_reviews/1899113)
+
+15. [Перехват и всплытие](https://ru.hexlet.io/courses/js-dom/lessons/event-stages/theory_unit)
+
+    [Решение](https://ru.hexlet.io/code_reviews/1909172)
+    
+17. [AJAX](https://ru.hexlet.io/courses/js-dom/lessons/ajax/theory_unit)
+
+    [Решение](https://ru.hexlet.io/code_reviews/1910281)
+
+17. [AJAX](https://ru.hexlet.io/courses/js-dom/lessons/ajax/theory_unit)
+
+    [Решение](https://ru.hexlet.io/code_reviews/1910281)
+
+18. [JQuery](https://ru.hexlet.io/courses/js-dom/lessons/jquery/theory_unit)
+
+    [Решение](https://ru.hexlet.io/code_reviews/1911826)
